@@ -7,6 +7,8 @@ public class Pessoa {
     private String rg;
     private String cpf;
 
+    public Pessoa(){};
+
     public Pessoa(String nome, String rg, String cpf) {
         this.nome = nome;
         this.rg = rg;

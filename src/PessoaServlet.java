@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 
 @WebServlet(name = "PessoaServlet")
@@ -24,17 +25,15 @@ public class PessoaServlet extends HttpServlet {
         service = new PessoaService();
         Boolean resultado = service.salvarPessoa(pessoa);
 
-        if(resultado){
-            request.getSession().setAttribute("pessoa", pessoa);
-            response.sendRedirect("listar-pessoa.jsp");
-        }else{
-            request.getSession().setAttribute("hasError", true);
-            response.sendRedirect("index.jsp");
-        }
+        response.sendRedirect("pessoa");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        service = new PessoaService();
+        List<Pessoa> pessoas = service.buscarPessoa();
+        request.setAttribute("lista", pessoas);
+        request.getRequestDispatcher("/listar-pessoa.jsp"). forward (request, response);
     }
 
 }
